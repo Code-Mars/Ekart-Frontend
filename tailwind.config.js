@@ -23,10 +23,10 @@ module.exports = {
       '2xl': '1536px',
       '2xl-mx': {'max': '1535px'},
       'xl-mx': {'max': '1279px'},
-      'lg-mx': {'max': '1023px'},
+      'lg-mx': {'max': '1024px'},
       'md-mx': {'max': '767px'},
       'sm-mx': {'max': '639px'},
-      'xsm-mx':{'max':'350px'}
+      'xsm-mx':{'max':'352px'}
     }
   },
   plugins: [],
