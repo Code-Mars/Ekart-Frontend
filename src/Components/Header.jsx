@@ -11,6 +11,7 @@ import {
     ShoppingCartIcon, UserCircleIcon, MagnifyingGlassIcon, ShoppingBagIcon
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { Link, useNavigate } from 'react-router-dom'
 
 const products = [
     { name: 'Furniture',  href: '#', icon: ArchiveBoxIcon },
@@ -31,15 +32,19 @@ function classNames(...classes) {
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [search , setSearch]=useState("");
 
+    const handleEnter=(event)=>{
+        if(event.key==="Enter")document.getElementById("search").click();
+    }
     return (
-        <header className="bg-white">
+        <header  className="scroll-smooth bg-white">
             <nav className="mx-auto max-w-7xl items-center justify-between p-4 md:px-8 gap-x-3 flex" aria-label="Global">
                 <div className="flex md:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5 flex gap-x-1 items-center">
+                    <Link to="/" className="-m-1.5 p-1.5 flex gap-x-1 items-center">
                         <img className="h-10 w-auto" src="/Images/cart.jpg" alt="Hel" />
                         <span className="font-bold text-xl">Ekart</span>
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex md:hidden md-mx:order-1">
                     <button
@@ -70,7 +75,7 @@ export default function Header() {
                                 <div className="p-4 flex flex-wrap">
                                 
                                     {products.map((item ) => (
-                                        <div
+                                        <Link to={`/search/${item.name}`}
                                             key={item.name}
                                             className="group relative  w-1/2 flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
                                         >
@@ -84,36 +89,42 @@ export default function Header() {
                                                 </a>
                                                 <p className="mt-1 text-gray-600">99 Item Available</p>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </Popover.Panel>
                         </Transition>
                     </Popover>
-
-                    <a href="#" className="lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
+                    
+                    <a  onClick={()=>document.getElementById('deals').scrollIntoView({behavior:"smooth"})} className="cursor-pointer lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
                         Deals
                     </a>
-                    <a href="#" className="lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
-                        What's New
-                    </a>
+                    <Link to="/orders" className="lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
+                        Orders
+                    </Link>
                 </Popover.Group>
-                <div className=" sm-mx:hidden md:ml-4 relative  text-gray-600">
-                    <input className="border-[1.3px] rounded-full text-sm border-gray-400 bg-white h-8 px-5 pr-10 focus:border-cyan-500  focus:outline-none "
-                        type="search" name="search" placeholder="Search Product" />
-                    <button type="submit"  className="outline-none absolute right-0 top-0 mt-1.5 mr-4">
+                <div className=" md:ml-4 relative  text-gray-600">
+                    <input className="xsm-mx:w-[35vw] sm-mx:w-[45vw] border-[1.3px] rounded-full text-sm border-gray-400 bg-white h-8 px-5 pr-10 focus:border-cyan-500  focus:outline-none "
+                        type="search" name="search" onKeyDown={handleEnter} value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Search Product" />
+                        <Link to={`/search/${search}`}>
+                    <button type="submit" id="search"  className="outline-none absolute right-0 top-0 mt-1.5 mr-4">
                         <MagnifyingGlassIcon className="h-5 w-5 flex-none" aria-hidden="true" />
                     </button>
+                    </Link>
                 </div>
-                <div className="xsm-mx:hidden flex md:flex-1 md:justify-end ">
-                    <a href="#" className="text-sm font-semibold leading-6 flex items-center gap-1 mr-8 text-gray-900">
+                <div className="sm-mx:hidden flex md:flex-1 md:justify-end ">
+                    <Link to="/account" className="text-sm font-semibold leading-6 flex items-center gap-1 mr-8 text-gray-900">
                         <UserCircleIcon className="h-5 w-5 flex-none" aria-hidden="true" />
                         Account
-                    </a>
-                    <a href="#" className="text-sm font-semibold leading-6 flex items-center gap-1  text-gray-900">
-                        <ShoppingCartIcon className="h-5 w-5 flex-none" aria-hidden="true" />
+                    </Link>
+                    <Link to="/cart" className="text-sm font-semibold leading-6 flex items-center gap-1  text-gray-900">
+                    <div className='relative'>
+                        <ShoppingCartIcon className=" h-5 w-5 flex-none" aria-hidden="true" />
+                        <div className=" absolute -top-2 z-10 -right-2 text-[0.65rem] h-4 w-4  font-extrabold text-white bg-blue-500 flex justify-center items-center rounded-full">2</div>
+                        <span class="animate-ping absolute -top-2 -right-2 inline-flex h-4 w-4 rounded-full bg-sky-400 opacity-85"></span>
+                        </div>
                         Cart
-                    </a>
+                    </Link>
                 </div>
 
             </nav>
@@ -144,45 +155,47 @@ export default function Header() {
                                             </div>
                                             <Disclosure.Panel className="mt-2 space-y-2">
                                                 {[...products, ...callsToAction].map((item) => (
+                                                    <Link  onClick={() => setMobileMenuOpen(false)} to={`/search/${item.name}`}
+                                                    key={item.name}>
                                                     <Disclosure.Button
-                                                        key={item.name}
                                                         as="a"
                                                         href={item.href}
                                                         className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                                     >
                                                         {item.name}
                                                     </Disclosure.Button>
+                                                    </Link>
                                                 ))}
                                             </Disclosure.Panel>
                                         </>
                                     )}
                                 </Disclosure>
-                                <a
-                                    href="#"
+                                {document.getElementById('deals') && <a
+                                     onClick={()=>{document.getElementById('deals').scrollIntoView({behavior:"smooth"});setMobileMenuOpen(false)}}
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Deals
-                                </a>
-                                <a
-                                    href="#"
+                                </a>}
+                                <Link
+                                    to="/orders"  onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
-                                    What's New
-                                </a>
-                                <a
-                                    href="#"
-                                    className="-mx-3 xsm:hidden block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    Orders
+                                </Link>
+                                <Link
+                                    to="/cart"  onClick={() => setMobileMenuOpen(false)}
+                                    className="-mx-3 sm:hidden block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Cart
-                                </a>
+                                </Link>
                             </div>
                             <div className="py-4">
-                            <a
-                                    href="#"
-                                    className="-mx-3 xsm:hidden block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                            <Link
+                                    to="/account"  onClick={() => setMobileMenuOpen(false)}
+                                    className="-mx-3 sm:hidden block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Account
-                                </a>
+                                </Link>
                                 <a
                                     href="#"
                                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

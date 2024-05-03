@@ -13,7 +13,14 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes:{
+        wiggle : {
+          '0%' : { transform : 'translateY(-10px)', opacity:'0'},
+          '100%' : { transform : 'translateY(0)', opacity:'1'},
+        }
+      }
+    },
     screens: {
       'xsm': '350px',
       'xs': '480px',
