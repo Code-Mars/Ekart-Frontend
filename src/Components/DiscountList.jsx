@@ -11,7 +11,7 @@ const DiscountList=()=>{
     <div className=" sm-mx:pl-2 text-xl md:text-2xl lg:text-3xl mb-5 font-semibold">Get Up to 70% off</div>
     <div className="md-mx:flex-wrap flex gap-2 justify-evenly pb-10 overflow-x-scroll scrollbar" id="style-3">
         {
-            card.map((e)=><DiscountCard desc={e.desc} price={e.price} pic={e.pic}/>)
+            card.map((e, index)=><DiscountCard key={index} desc={e.desc} price={e.price} pic={e.pic}/>)
         }
     </div>
 </div>

@@ -1,7 +1,7 @@
 import Card from "./Card";
 
 const Category=()=>{
-    const items=["Furniture", "Handbag", "Book", "Laptop", "Mobile", "Headphone"]
+    const items=[ "Books", "Laptop", "Mobile", "Headphone","Furniture", "Handbag"]
     return <div className="my-10 mx-1">
     <span className=" md:text-2xl lg:text-3xl ml-5 font-semibold">Top Categories</span>
         <div className="flex gap-2 md:gap-5 lg-mx:flex-wrap justify-evenly my-5">

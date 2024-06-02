@@ -8,7 +8,7 @@ const PrevArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="md-mx:hidden absolute z-10 cursor-pointer   slick-arrow top-[40%] left-5" onClick={onClick}>
-      <ArrowLeftCircleIcon className="  h-10 hover:text-gray-500 text-white w-10"/>
+    <ArrowLeftCircleIcon className="transition duration-300 ease-in-out h-10 hover:text-gray-500 text-white w-10"/>
      </div>
   );
 };
@@ -17,7 +17,7 @@ const NextArrow = (props) => {
   const { onClick } = props;
   return (
     <button className="md-mx:hidden absolute z-10 slick-arrow top-[40%] right-5" onClick={onClick}>
-      <ArrowRightCircleIcon className="h-10  hover:text-gray-500  text-white w-10" />
+      <ArrowRightCircleIcon className="h-10 transition duration-300 ease-in-out hover:text-gray-500 text-white w-10" />
     </button>
   );
 };
@@ -40,7 +40,7 @@ const Carousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />
+    nextArrow: <NextArrow />,
   };
 
   return (
@@ -48,8 +48,8 @@ const Carousel = () => {
     <Slider {...settings} ref={sliderRef}>
     {
       offers.map((x, index)=>
-       <div key={index} className=" cursor-pointer overflow-hidden">
-        <img src={`/Images/img${x}.jpg`}  alt="Slide" className="w-full" />
+       <div key={index} className=" cursor-pointer  overflow-hidden">
+        <img src={`/Images/img${x}.jpg`}  alt="Slide" className="w-auto object-cover min-h-[25vh] " />
       </div>
       )
     }

@@ -15,7 +15,7 @@ const ScrollToTop=()=>{
             behavior:'smooth'
         })
     }
-    return show && <button onClick={scrollUp} className="fixed z-20 bottom-8 right-5" ><ArrowUpIcon className="w-10 h-10 bg-blue-500 rounded-full transition duration-500 ease-in-out border-blue-500 p-2 text-white shadow- shadow-slate-900" /></button>
+    return show && <div onClick={scrollUp}  className="fixed rounded-full shadow-md shadow-slate-600  cursor-pointer z-20 bottom-8 right-5" ><ArrowUpIcon className="w-10 h-10 bg-blue-500 rounded-full transition duration-500 ease-in-out border-blue-500 p-2 text-white shadow- shadow-slate-900" /></div>
 
 }
 export default ScrollToTop;

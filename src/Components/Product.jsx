@@ -1,14 +1,29 @@
-import { HeartIcon, MinusIcon, PlusIcon, StarIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, HeartIcon, MinusIcon, PlusIcon, StarIcon } from "@heroicons/react/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import SimilarProd from "./SimilarProd";
-
+import { getItem } from "../Services/ItemService";
+import { addItem } from "../Slices/CartSlice";
+import { useDispatch } from "react-redux";
 const Product = () => {
+    const dispatch = useDispatch();
+    const [product, setProduct] = useState({})
+    const { id } = useParams();
+    const [added, setAdded] = useState(false);
+    const handleAdd = () => {
+        setAdded(true);
+        setTimeout(() => {
+            setAdded(false);
+        }, 4000);
+
+    }
     useEffect(() => {
+        getItem(id).then((res) => setProduct(res)).catch(error => console.log(error));
         window.scrollTo(0, 0);
     }, []);
-    const ratings = 5;
-    const [count, setCount] = useState(1);
+
+    const [count, setCount] = useState(1)
     const items = [
         { name: "Laptop sleeve MacBook", desc: "Organic Cotton, fairtrade certified", price: 59, ratings: 4 },
         { name: "AirPods Max", desc: "A perfect balance of high-fidelity audio", price: 559, ratings: 3 },
@@ -21,17 +36,17 @@ const Product = () => {
     ]
     return <div className="my-5 md-mx:mx-5 mx-10 flex flex-wrap md-mx:gap-5 gap-12">
         <div className="relative w-fit h-fit bg-gray-100 rounded-xl flex items-center justify-center">
-            <img className="" src="/Images/AirPods Max.png" />
+            <img className="" src={`/Images/${product.title}.png`} />
             <div className=" cursor-pointer absolute md-mx:right-3 md-mx:top-3 md:right-5 md:top-5  transition duration-300 ease-in-out bg-white p-2 rounded-full hover:bg-red-100">
                 <HeartIcon className="h-5 w-5" />
             </div>
         </div>
-        <div className="flex flex-col gap-3">
-            <span className="text-2xl font-bold">AirPods Max</span>
-            <span className="text-xs text-gray-600 font-semibold">A perfect balance of high-fidelity audio</span>
+        <div className="flex max-w-[272px] flex-col gap-3">
+            <span className="text-2xl font-bold">{product.title}</span>
+            <span className="text-xs text-gray-600 font-semibold">{product.desc}</span>
             <div className="flex" >{
                 [...Array(5)].map((e, i) => {
-                    if (i < ratings) return <StarIconSolid key={i} className=" xsm-mx:h-3  xsm-mx:w-3 h-4 text-green-500 w-4" />
+                    if (i < product.rating) return <StarIconSolid key={i} className=" xsm-mx:h-3  xsm-mx:w-3 h-4 text-green-500 w-4" />
                     else return <StarIcon key={i} className=" xsm-mx:h-3  xsm-mx:w-3 h-4 text-green-500 w-4" />
                 })
             }
@@ -39,7 +54,7 @@ const Product = () => {
             </div>
             <hr />
             <div className="flex flex-col">
-                <span className="text-lg font-bold">$549.00 or 99.99/month</span>
+                <span className="text-lg font-bold">${product.price}.00 or {(product.price / 6).toFixed()}.99/month</span>
                 <span className=" text-xs text-gray-600 font-semibold">Suggested payment with 6 months special EMI</span>
             </div>
             <hr />
@@ -49,16 +64,23 @@ const Product = () => {
             </div>
             <hr />
             <div className="flex gap-2">
-                <button className="border font-semibold border-blue-500 text-white bg-blue-500 text-sm hover:bg-blue-800  py-2 px-4 rounded-full transition duration-300 ease-in-out xsm-mx:text-[10px]/[12px] " >Buy Now</button>
-                <button className="border font-semibold border-blue-500 text-blue-500 text-sm hover:bg-blue-500 hover:text-white py-2 px-4 rounded-full transition duration-300 ease-in-out xsm-mx:text-[10px]/[12px]  " >Add to Cart</button>
+                <button className="border focus:outline-none  font-semibold border-blue-500 text-white bg-blue-500 text-sm hover:bg-blue-800  py-2 px-4 rounded-full transition duration-300 ease-in-out xsm-mx:text-[10px]/[12px] " >Buy Now</button>
+
+                {!added && <button onClick={() => { dispatch(addItem({ ...product, "quantity": count })); handleAdd() }} className="border focus:outline-none  font-semibold border-blue-500 text-blue-500 text-sm hover:bg-blue-500 hover:text-white py-2 px-4 rounded-full transition duration-300 ease-in-out xsm-mx:text-[10px]/[12px]  " >Add to Cart</button>}
+                {
+                    added && <button className=" flex border border-green-500 text-green-500 text-sm focus:outline-none hover:bg-green-500 hover:text-white py-1.5 px-4 rounded-full transition duration-300 ease-in-out xsm-mx:text-[10px]/[12px] md-mx:text-xs md-mx:py-1 md-mx:px-2" ><CheckIcon className="font-extrabold w-5 h-5" /> Added</button>
+                }
             </div>
         </div>
         <div className="md-mx:w-full w-[512px]">
-            <div><span className="text-lg font-semibold">Similar Products</span> <a href="#" className="ml-2 text-[10px]/[12px] text-gray-400 font-bold">See All</a></div>
+            <div>
+            <span className="text-lg font-semibold">Similar Products</span> 
+            <a href="#" className="ml-2 text-[10px]/[12px] text-gray-400 font-bold">See All</a>
+            </div>
             <div className=" flex flex-wrap gap-2 mt-4 justify-evenly">
                 {
 
-                    items.map((e, i) => i < 6 ? <SimilarProd name={e.name} price={e.price} ratings={e.ratings} /> : <></>)
+                    items.map((e, i) => i < 6 && <SimilarProd key={i} name={e.name} price={e.price} ratings={e.ratings} /> )
                 }
             </div>
         </div>
