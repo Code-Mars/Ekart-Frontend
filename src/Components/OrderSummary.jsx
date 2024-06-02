@@ -104,16 +104,16 @@ const OrderSummary = ({totalPrice, valid, handleRun}) => {
                     <span className="ml-2">Credit or Debit Card</span>
                 </label>
             </div>
-            {show == 1 && <div className="animate-[wiggle_0.7s_ease-in-out_1]">
+            {show === 1 && <div className="animate-[wiggle_0.7s_ease-in-out_1]">
                 <FloatingInput id="upi" name="UPI Id"  value={formData.upi} handleChange={handleChange} errorMessage={formError.upi}/></div>
             }
-            {show == 2 &&
+            {show === 2 &&
                 (<div className="gap-4 flex flex-col animate-[wiggle_0.7s_ease-in-out_1]">
                 <FloatingInput id="cardNumber" name="Card Number"  value={formData.cardNumber} handleChange={handleChange} errorMessage={formError.cardNumber}/>
                 
                     <div className="flex gap-2 justify-between">
-                        <FloatingInput id="expiry" name="Expiry (MM/YY)" width="49"  value={formData.expiry} handleChange={handleChange} errorMessage={formError.expiry}/>
-                        <FloatingInput id="cvv" name="CVV" width="49" value={formData.cvv} handleChange={handleChange} errorMessage={formError.cvv}/>
+                        <FloatingInput id="expiry" name="Expiry (MM/YY)"   value={formData.expiry} handleChange={handleChange} errorMessage={formError.expiry}/>
+                        <FloatingInput id="cvv" name="CVV"  value={formData.cvv} handleChange={handleChange} errorMessage={formError.cvv}/>
                     </div>
                     <FloatingInput id="nameOnCard" name="Name on Card" value={formData.nameOnCard} handleChange={handleChange}  errorMessage={formError.nameOnCard}/>
                     </div>)

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PriceDetails=({totalPrice, qty})=>{
     const user=useSelector(state=>state.user);

@@ -1,6 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { Link } from 'react-router-dom'
 import FloatingInput from './FloatingInput';
 import { loginUser } from '../Services/UserService';
 import { useDispatch } from 'react-redux';
@@ -17,7 +16,7 @@ const LoginForm = ({ setLogin, setRegister }) => {
     }
     const [formData, setFormData] = useState(form);
     const [formError, setFormError] = useState(form);
-    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
     const handleChange = (name, value) => {
         setFormData({ ...formData, [name]: value });
         setFormError({ ...formError, [name]: value === "" ? `Please enter ${name}` : "" });
@@ -26,8 +25,8 @@ const LoginForm = ({ setLogin, setRegister }) => {
         if (formData["email"] !== "" && formData["password"] !== "") {
             loginUser(formData).then((response) => {
                 dispatch(setUser({ id: response.id, name: response.name, email: response.email, mobile: response.mobile}));
-            }).then((error) => setError(true));
-            setLogin(false);
+                setLogin(false);
+            }).catch((err) => setErrorMessage(true));
         }
         else {
             setFormError({ email: formData["email"] === "" ? "Please Enter email" : "", password: formData["password"] === "" ? "Please enter password" : "" });
@@ -67,6 +66,7 @@ const LoginForm = ({ setLogin, setRegister }) => {
                                     <div className='flex flex-col gap-4'>
                                         <FloatingInput id="email" name="Email" value={formData.email} handleChange={handleChange} errorMessage={formError.email} />
                                         <FloatingInput id="password" name="Password" value={formData.password} handleChange={handleChange} errorMessage={formError.password} />
+                                        {errorMessage && <div className='text-red-500 font-semibold text-sm'>Invalid Email or Password</div>}
                                         <button data-autofocus className="transition duration-300 ease-in-out bg-blue-500 focus:outline-none hover:bg-blue-600 text-white rounded-md p-2" onClick={handleLogin} >Login</button>
                                         <div className='text-blue-500 hover:text-blue-600 text-sm text-center cursor-pointer'>Forget Password?</div>
                                         <div className='text-center text-sm hover:text-blue-600 text-blue-500 cursor-pointer' onClick={() => { setLogin(false); setRegister(true) }} ><span className='text-black'>New User?</span> Register</div>

@@ -8,7 +8,7 @@ const TodayDeals = () => {
     const category = ["Mobile", "Laptop", "Books", "Headphone", "Beauty", "Fitness", "Furniture", "Sneakers"];
     useEffect(() => {
         getCategoryWiseItems(category[btn]).then((res)=>setItems(res)).catch(error=>console.log(error));
-    }, [btn])
+    },[btn]);
 
 
     return <div id="deals" className="scroll-smooth p-5 w-full">
@@ -21,7 +21,7 @@ const TodayDeals = () => {
         </div>
         <div className="flex  gap-4 pb-10 flex-wrap">
             {
-                items.map((e) => <Item key={e.id} id={e.id} title={e.title} price={e.price} desc={e.desc} rating={e.rating} />)
+                items.map((e, i) =>i<8 && <Item key={e.id} id={e.id} title={e.title} price={e.price} desc={e.desc} rating={e.rating} />)
             }
         </div>
     </div>

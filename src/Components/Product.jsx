@@ -21,7 +21,7 @@ const Product = () => {
     useEffect(() => {
         getItem(id).then((res) => setProduct(res)).catch(error => console.log(error));
         window.scrollTo(0, 0);
-    }, []);
+    });
 
     const [count, setCount] = useState(1)
     const items = [
@@ -36,7 +36,7 @@ const Product = () => {
     ]
     return <div className="my-5 md-mx:mx-5 mx-10 flex flex-wrap md-mx:gap-5 gap-12">
         <div className="relative w-fit h-fit bg-gray-100 rounded-xl flex items-center justify-center">
-            <img className="" src={`/Images/${product.title}.png`} />
+            <img className="" src={`/Images/${product.title}.png`} alt="img" />
             <div className=" cursor-pointer absolute md-mx:right-3 md-mx:top-3 md:right-5 md:top-5  transition duration-300 ease-in-out bg-white p-2 rounded-full hover:bg-red-100">
                 <HeartIcon className="h-5 w-5" />
             </div>
@@ -75,7 +75,7 @@ const Product = () => {
         <div className="md-mx:w-full w-[512px]">
             <div>
             <span className="text-lg font-semibold">Similar Products</span> 
-            <a href="#" className="ml-2 text-[10px]/[12px] text-gray-400 font-bold">See All</a>
+            <button  className="ml-2 focus:outline-none text-[10px]/[12px] text-gray-400 font-bold">See All</button>
             </div>
             <div className=" flex flex-wrap gap-2 mt-4 justify-evenly">
                 {

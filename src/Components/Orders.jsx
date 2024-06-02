@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import CartItem from "./CartItem";
 import OrderItem from "./OrderItem";
 import { getOrders } from "../Services/CartService";
 import { getItem } from "../Services/ItemService";
-import { useNavigate } from "react-router-dom";
 
 const Orders =()=>{
     const [orders, setOrders]=useState([]);
@@ -19,7 +17,7 @@ const Orders =()=>{
           });
 
         window.scrollTo(0, 0);
-      }, []);
+      });
     return <div>
         
         <div className="md-mx:w-[95%] mx-auto w-[62%] p-3 m-2 border-[1px] border-gray-300 rounded-lg  flex flex-col gap-3">

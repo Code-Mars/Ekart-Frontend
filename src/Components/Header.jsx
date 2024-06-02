@@ -108,9 +108,9 @@ export default function Header() {
                         </Transition>
                     </Popover>
 
-                    {location.pathname === "/" && <a onClick={() => document.getElementById('deals').scrollIntoView({ behavior: "smooth" })} className="cursor-pointer transition duration-300 ease-in-out hover:underline hover:underline-offset-4 hover:text-blue-600 lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
+                    {location.pathname === "/" && <button onClick={() => document.getElementById('deals').scrollIntoView({ behavior: "smooth" })} className="focus:outline-none cursor-pointer transition duration-300 ease-in-out hover:underline hover:underline-offset-4 hover:text-blue-600 lg-mx:hidden text-sm font-semibold leading-6 text-gray-900">
                         Deals
-                    </a>}
+                    </button>}
                     <Link to="/orders" className="lg-mx:hidden transition duration-300 ease-in-out hover:underline hover:underline-offset-4 hover:text-blue-600 text-sm font-semibold leading-6 text-gray-900">
                         Orders
                     </Link>
@@ -186,12 +186,12 @@ export default function Header() {
                                         </>
                                     )}
                                 </Disclosure>
-                                {document.getElementById('deals') && <a
+                                {document.getElementById('deals') && <button
                                     onClick={() => { document.getElementById('deals').scrollIntoView({ behavior: "smooth" }); setMobileMenuOpen(false) }}
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    className="-mx-3 focus:outline-none block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Deals
-                                </a>}
+                                </button>}
                                 <Link
                                     to="/orders" onClick={() => setMobileMenuOpen(false)}
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

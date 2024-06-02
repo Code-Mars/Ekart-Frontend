@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Item from "./Item";
-import { getAllItems, getItem, getTrendingItems } from "../Services/ItemService";
+import {getTrendingItems } from "../Services/ItemService";
 
 const Deals =()=>{
     const [items, setItems]=useState([]);
     useEffect(()=>{
         getTrendingItems().then(res=>setItems(res)).catch(error=>console.log(error));
-    }, [])
+    })
     return <div className="p-5 w-full">
         <div className=" md:text-2xl lg:text-3xl mb-5 font-semibold">Best Deals</div>
         <div className="flex gap-4 pb-10 overflow-x-scroll scrollbar" id="style-3">

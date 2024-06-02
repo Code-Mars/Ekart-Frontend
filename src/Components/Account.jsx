@@ -1,7 +1,7 @@
-import { PaperClipIcon } from "@heroicons/react/24/outline";
+
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Router, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const user = useSelector(state => state.user);
@@ -9,7 +9,7 @@ const Account = () => {
   useEffect(() => {
     if (!user) navigate("/");
     window.scrollTo(0, 0);
-  }, []);
+  });
   return (user && <div className="m-5">
     <div className="text-xl font-semibold">Account Information</div>
     <div>

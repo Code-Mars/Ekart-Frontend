@@ -12,7 +12,7 @@ const Item = ({id, title, price,desc, rating}) => {
     const [heart, setHeart] = useState(false);
     useEffect(() => {
         if(wishlist && wishlist.find(item=>item===id))setHeart(true);
-    }, [])
+    })
     const handleAdd=()=>{
         setAdded(true);
         setTimeout(() => {
@@ -26,7 +26,7 @@ const Item = ({id, title, price,desc, rating}) => {
     return <div className=" flex flex-col xsm-mx:w-[20%] xsm-mx:min-w-32 xs-mx:w-[20%] sm-mx:w-[25%] sm-mx:min-w-40 md-mx:w-[30%] md-mx:min-w-52 md:min-w-72 md:w-[23%] gap-1.5">
         <div className="bg-gray-100 rounded-lg flex items-center justify-center relative overflow-hidden">
         <Link to={`/product/${id}`}> 
-            <img className="cursor-pointer hover:scale-[1.2] transform transition-transform duration-[400ms]" src={`/Images/${title}.png`} /></Link>
+            <img className="cursor-pointer hover:scale-[1.2] transform transition-transform duration-[400ms]" src={`/Images/${title}.png`}  alt=""/></Link>
             <div onClick={()=>handleLike()} className=" cursor-pointer absolute md-mx:right-3 md-mx:top-3 md:right-5 md:top-5  transition duration-300 ease-in-out bg-white p-2 rounded-full hover:bg-red-100">
                 {
                     !heart && <HeartIcon className="h-5 w-5" />}

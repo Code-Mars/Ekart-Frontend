@@ -11,7 +11,7 @@ const BuyNow = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         if(!user)navigate("/cart");
-    }, []);
+    });
     
     const items = useSelector(state => state.cart);
     const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);

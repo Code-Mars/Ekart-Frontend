@@ -2,15 +2,11 @@ import { useParams } from "react-router";
 import Item from "./Item";
 import { useEffect, useState } from "react";
 import { searchItems } from "../Services/ItemService";
-import { useNavigate } from "react-router-dom";
 
 const Search = () => {
     const [items, setItems]=useState([]);
     const { search } = useParams();
-    const navigate = useNavigate();
     useEffect(() => {
-        console.log(search);
-        if(search==="")navigate("/");
         searchItems(search).then(res=>setItems(res)).catch(error=>console.log(error));
         window.scrollTo(0, 0);
         

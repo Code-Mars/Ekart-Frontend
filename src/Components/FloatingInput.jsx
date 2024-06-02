@@ -1,4 +1,4 @@
-const FloatingInput = ({ id, name, width, value, handleChange, errorMessage }) => {
+const FloatingInput = ({ id, name, value, handleChange, errorMessage }) => {
     return <div className={`w-full`}> <div className={`relative w-full`}>
         <input autoComplete="off"
             id={id}
